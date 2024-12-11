@@ -9,11 +9,12 @@ find_package(OpenGL REQUIRED)
 
 add_subdirectory(lib/glfw)
 
-file(GLOB_RECURSE CPP_FILES src/*.cpp)
-file(GLOB_RECURSE C_FILES src/*.c)
+# Remove src/*.c (glad.c should be in the libs folder)
+file(GLOB_RECURSE SRC_FILES src/*.cpp src/*.c)
+file(GLOB_RECURSE HEADER_FILES src/*.h)
 
-add_executable(minecraft ${CPP_FILES} ${C_FILES})
+add_executable(minecraft ${SRC_FILES} ${HEADER_FILES})
 
-target_include_directories(minecraft PUBLIC "${CMAKE_SOURCE_DIR}/include")
+target_include_directories(minecraft PUBLIC "${CMAKE_SOURCE_DIR}/include" "${CMAKE_SOURCE_DIR}/src")
 
 target_link_libraries(minecraft OpenGL::GL glfw)
