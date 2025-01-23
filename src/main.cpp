@@ -6,7 +6,7 @@ int main()
 
 	if (!renderer.Init())
 	{
-		return EXIT_FAILURE;
+		return EXIT_SUCCESS;
 	}
 
 	renderer.Render();
