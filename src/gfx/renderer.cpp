@@ -13,6 +13,7 @@
 #include "gfx/shader_program.h"
 #include "gfx/vbo.h"
 #include "gfx/vao.h"
+#include "gfx/texture.h"
 
 Renderer::Renderer(const uint16& Height, const uint16& Width) : m_Window {Height, Width}
 {
@@ -32,8 +33,8 @@ void Renderer::Render()
 {
 	glViewport(0, 0, m_Window.Width(), m_Window.Height());
 
-	Shader vertexShader {GL_VERTEX_SHADER, "default.vs"};
-	Shader fragmentShader {GL_FRAGMENT_SHADER, "default.fs"};
+	Shader vertexShader {GL_VERTEX_SHADER, "default.vert"};
+	Shader fragmentShader {GL_FRAGMENT_SHADER, "default.frag"};
 
 	ShaderProgram shaderProgram {};
 
@@ -50,6 +51,10 @@ void Renderer::Render()
 
 	vao.Bind();
     vbo.Bind();
+
+	vao.Setup();
+
+	Texture texture {"dirt.png"};
 
 	while (!m_Window.ShouldWindowClose())
 	{

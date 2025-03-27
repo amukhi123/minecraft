@@ -11,7 +11,7 @@ public:
 
 	virtual ~Vbo();
 
-	inline uint32 Id() const
+	uint32 Id() const
 	{
 		return m_Id;
 	}
@@ -20,7 +20,9 @@ public:
 private:
 	uint32 m_Id;	
 
-	std::vector<float> m_Verticies;
+	std::vector<float> m_VertexData;
 
 	void Setup();
+
+	void CreateVertexData();
 };

@@ -3,10 +3,11 @@
 #include <fstream>
 #include <filesystem>
 #include <string>
-#include <format>
 #include <iostream>
 
-#include "shader.h"
+#include "gfx/shader.h"
+
+#include "util/project_file_system.h"
 
 Shader::Shader(const int& Type, const std::string& Path) : m_Id {CreateShader(Type)}
 {
@@ -49,33 +50,7 @@ void Shader::CompileShader(const std::string& Path) const
 
 std::string Shader::Source(const std::string& ShaderName) const
 {
-	const std::filesystem::path exeDirectoryPath {std::filesystem::current_path()};
-
-	if (!exeDirectoryPath.has_parent_path())
-	{
-		return "ERROR: Build directory path not found.";
-	}
-
-	const std::filesystem::path buildDirectoryPath {exeDirectoryPath.parent_path()};
-
-	if (!buildDirectoryPath.has_parent_path())
-	{
-		return "ERROR: Project root directory path not found.";
-	}
-
-	const std::filesystem::path projectRootDirectoryPath {buildDirectoryPath.parent_path()};
-	
-	// WRONG check for relative path exsistance
-	const std::string shaderDirectoryRelativePath {std::format("res\\shader\\{0}", ShaderName)};
-
-	const std::filesystem::path shaderDirectoryPath {projectRootDirectoryPath / shaderDirectoryRelativePath};
-
-	if (!std::filesystem::exists(shaderDirectoryPath))
-	{
-		return "ERROR: Shader directory path not found";
-	}
-
-	std::ifstream shaderSource {shaderDirectoryPath};
+	std::ifstream shaderSource {ProjectFileSystem::Instance()->GetShaderFilePath(ShaderName)};
 
 	if (shaderSource.is_open())
 	{
@@ -105,3 +80,4 @@ std::string Shader::Source(const std::string& ShaderName) const
 		return "";
 	}
 }
+

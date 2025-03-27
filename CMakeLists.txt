@@ -14,7 +14,7 @@ add_subdirectory(lib/glfw)
 set(SRC_FILES src/main.cpp)
 
 file(GLOB_RECURSE GFX_FILES src/gfx/*.cpp src/gfx/*.h)
-file(GLOB_RECURSE UTIL_FILES src/util/*.cpp src/gfx/*.h)
+file(GLOB_RECURSE UTIL_FILES src/util/*.cpp src/util/*.h)
 file(GLOB_RECURSE SHADER_FILES res/*.vs res/*.fs)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${GFX_FILES} ${UTIL_FILES} ${SHADER_FILES})

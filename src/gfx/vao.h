@@ -9,7 +9,7 @@ public:
 
 	~Vao();
 
-	inline uint32 Id() const
+	uint32 Id() const
 	{
 		return m_Id;
 	}
@@ -17,8 +17,10 @@ public:
 	void Draw() const;
 
 	void Bind() const;
-private:
-	void Setup();
 
+	void Gen();
+
+	void Setup();
+private:
 	uint32 m_Id;
 };
